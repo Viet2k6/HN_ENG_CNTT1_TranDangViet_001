@@ -111,15 +111,22 @@ void searchTaskByTitle(SingleNode *head, char *findStr) {
         return;
     }
     SingleNode *temp = head;
+    int found = 0;
     while (temp != NULL) {
-        if (strstr(temp->task.title, findStr) == 0) {
+        if (strstr(temp->task.title, findStr) != NULL) {
             printf("Task ID: %d\n", temp->task.id);
             printf("Title: %s\n", temp->task.title);
             printf("Priority: %d\n", temp->task.priority);
             printf("Deadline: %s\n", temp->task.deadline);
+            found = 1;
         }
+        temp = temp->next;
+    }
+    if (!found) {
+        printf("Khong tim thay task co title chua: %s\n", findStr);
     }
 }
+
 int main() {
     int choice;
     SingleNode *singleHead = NULL;
@@ -172,6 +179,7 @@ int main() {
         case 6:
             break;
         case 7:
+            fflush(stdin);
             char findStr[100];
             printf("Nhap task muon tim: ");
             gets(findStr);
